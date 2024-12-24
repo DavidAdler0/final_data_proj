@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d048c589ab6b063a3abe041fa5c24145 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+</head>
+<body>
+            <h1>Interactive Map with Flask and Folium</h1>
+            <!-- User input form -->
+            <form method="POST" action="http://127.0.0.1:5000/map/submit">
+
+                <!-- Select field to choose query -->
+                <label for="query">choose query:</label>
+                <select name="query" id="query" required>
+                    <option value="1">ממוצע נפגעים לפי איזור</option>
+                    <option value="2">אחוז שינוי נפגעים לפי איזור</option>
+                </select>
+
+
+                <label for="query">choose area type:</label>
+                <select name="area_type" id="area_type" required>
+                    <option value="country">מדינה</option>
+                    <option value="city">עיר</option>
+                    <option value="region">אזור</option>
+                </select>
+
+                <!-- ... -->
+                <!-- Region input field -->
+                <label for="region">Region:</label>
+                <input type="text" id="region" name="region" placeholder="Enter RegionName"><br>
+                <!-- Other fields -->
+                <label for="input_1">input 1:</label>
+                <input type="text" id="input_1" name="input_1" placeholder="input_1"><br>
+                <label for="input_2">input 2:</label>
+                <input type="text" id="input_2" name="input_2" placeholder="input_2"><br>
+                <!-- User input form -->
+
+                <button type="submit">Update Map</button>
+            </form>
+            <!-- Embed the updated map -->
+            <iframe src="{{ url_for('map.render_map') }}" cache="no-store" width="100%"
+            height="600px"></iframe>
+    
+            <div class="folium-map" id="map_d048c589ab6b063a3abe041fa5c24145" ></div>
+        
+</body>
+<!--<script>-->
+
+
+<!--            var map_d048c589ab6b063a3abe041fa5c24145 = L.map(-->
+<!--                "map_d048c589ab6b063a3abe041fa5c24145",-->
+<!--                {-->
+<!--                    center: [45.5236, -122.675],-->
+<!--                    crs: L.CRS.EPSG3857,-->
+<!--                    ...{-->
+<!--  "zoom": 10,-->
+<!--  "zoomControl": true,-->
+<!--  "preferCanvas": false,-->
+<!--}-->
+
+<!--                }-->
+<!--            );-->
+
+
+
+
+
+<!--            var tile_layer_e76a6f6fb5e67228f9bf99ed02b6c9f9 = L.tileLayer(-->
+<!--                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",-->
+<!--                {-->
+<!--  "minZoom": 0,-->
+<!--  "maxZoom": 19,-->
+<!--  "maxNativeZoom": 19,-->
+<!--  "noWrap": false,-->
+<!--  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",-->
+<!--  "subdomains": "abc",-->
+<!--  "detectRetina": false,-->
+<!--  "tms": false,-->
+<!--  "opacity": 1,-->
+<!--}-->
+
+<!--            );-->
+
+
+<!--            tile_layer_e76a6f6fb5e67228f9bf99ed02b6c9f9.addTo(map_d048c589ab6b063a3abe041fa5c24145);-->
+
+<!--</script>-->
+</html>
