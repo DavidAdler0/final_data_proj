@@ -1,8 +1,7 @@
-import os
 from flask import Flask
 from blueprints.map import map_bp
 from blueprints.analysis import analysis_bp
-from data_service import init_first_data
+from repositories.data_repository import init_first_data, init_second_data
 from db import db
 
 
@@ -29,15 +28,16 @@ def init_db(app):
             db.create_all()
             print("Tables created successfully")
             init_first_data()
-            print("initalized data")
+            print("initalized first csv")
+            init_second_data()
+            print("initalized second csv")
     except Exception as e:
         print(f"Error creating tables: {e}")
         raise
     return app
 
-
 if __name__ == '__main__':
 
     app = create_app()
-    app = init_db(app)
+    # app = init_db(app)
     app.run()

@@ -25,7 +25,7 @@ def generate_map_lethality_by_area(area):
         fill_opacity=0.7,
         line_opacity=0.2,
         legend_name='Terrorism Index',
-        bins=[0, 0.2, 0.5, 1, 5, 10, 32],
+        bins=[0, 1, 25, 50, 75, 100, 250],
         nan_fill_color='white',
         nan_fill_opacity=0.7
     ).add_to(m)

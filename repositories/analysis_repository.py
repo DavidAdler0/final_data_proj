@@ -1,6 +1,6 @@
 import folium
 import requests
-from data_service import get_terror_events_df, get_location_df
+from repositories.data_repository import get_terror_events_df, get_location_df
 
 
 def terror_events_with_lethality_score():
