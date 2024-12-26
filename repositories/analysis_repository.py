@@ -21,17 +21,17 @@ def lethality_avg_by_area(area):
 
 def lethality_change_by_area_and_year(area):
     try:
-        # קבלת נתוני אירועי טרור
+
         terror_events = terror_events_with_lethality_score()
         if terror_events is None or terror_events.empty:
             raise ValueError("Data from terror_events_with_lethality_score is empty or None.")
 
-        # קבלת נתוני מיקום
+
         location = get_location_df()
         if location is None or location.empty:
             raise ValueError("Data from get_location_df is empty or None.")
 
-        # בדיקה אם העמודות הנדרשות קיימות
+
         required_columns_terror = {'location_id', 'lethality_level', 'year'}
         required_columns_location = {'id', area}
 
@@ -43,7 +43,7 @@ def lethality_change_by_area_and_year(area):
             raise ValueError(
                 f"Missing required columns in location: {required_columns_location - set(location.columns)}")
 
-        # חיבור נתונים וחישוב שינוי באחוזים
+
         group_by_area_and_year = (
             terror_events
             .merge(location, left_on="location_id", right_on="id")
@@ -53,14 +53,14 @@ def lethality_change_by_area_and_year(area):
             .reset_index()
         )
 
-        # חישוב שינוי באחוזים
+
         group_by_area_and_year['pct_change'] = (
                 group_by_area_and_year
                 .groupby(f'{area}')['lethality_level']
                 .pct_change() * 100
         )
 
-        # החזרת התוצאה
+
         res = group_by_area_and_year[[f'{area}', 'year', 'pct_change']]
         return res
 
@@ -99,7 +99,7 @@ def most_targeted_location_by_area():
                .groupby('country')
                .first()
                .reset_index())
-    #
+
     def get_terror_groups(row):
         mask = ((df['longitude'] == row['longitude']) &
                 (df['latitude'] == row['latitude']))

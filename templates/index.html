@@ -70,8 +70,7 @@
                 <button type="submit">Update Map</button>
             </form>
             <!-- Embed the updated map -->
-            <iframe src="{{ url_for('map.render_map') }}" cache="no-store" width="100%"
-            height="600px"></iframe>
+            <iframe src="{{ url_for('map.render_map', t=timestamp) }}" width="100%" height="600px"></iframe>
     
             <div class="folium-map" id="map_d048c589ab6b063a3abe041fa5c24145" ></div>
         

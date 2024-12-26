@@ -1,4 +1,6 @@
 import os
+import time
+
 import folium
 from flask import Blueprint, render_template, request, make_response
 
@@ -14,13 +16,19 @@ def no_cache(response):
     return response
 @map_bp.route('/', methods=['GET'])
 def home():
+    m = folium.Map(location=[0, 0], zoom_start=2)
+    m.save("templates/map.html")
     response = make_response(render_template('home.html'))
     return no_cache(response), 200
 @map_bp.route('/render_map', methods=['GET', 'POST'])
 def render_map():
     try:
-        response = make_response(render_template('map.html'))
-        return no_cache(response), 200
+        timestamp = int(time.time())
+        response = make_response(render_template('map.html', t=timestamp))
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response, 200
     except Exception as e:
         return f"an error occured: {e}"
 
@@ -34,6 +42,7 @@ def submit():
         input1 = request.form['input_1']
         input2 = request.form['input_2']
 
+        timestamp = int(time.time())
         success = None
         match query:
             case "1":
@@ -45,8 +54,7 @@ def submit():
             case "4":
                 success = generate_map_targeted_locations()
         if success:
-            response = make_response(render_template("index.html"))
-            return no_cache(response), 200
+            return render_template('index.html', timestamp=timestamp), 200
         return "an error occurred while generating the map", 500
     except Exception as e:
         return f"an error occured: {e}", 500

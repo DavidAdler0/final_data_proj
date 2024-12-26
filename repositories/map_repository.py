@@ -32,8 +32,6 @@ def generate_map_lethality_by_area(area):
 
     folium.LayerControl().add_to(m)
 
-    # Save map to the 'map.html' file and render the main 'index.html' file
-    # map_path = os.path.join("templates", "map.html")
     m.save("templates/map.html")
     print("saved new map")
     return True
@@ -41,27 +39,22 @@ def generate_map_lethality_by_area(area):
 
 def generate_map_lethality_pct_change(area=None):
     try:
-        # יצירת GeoJSON מעודכן
         world_geo = generate_geojson_with_pct_change()
         if world_geo is None:
             raise ValueError("Failed to generate GeoJSON. The data might be missing or invalid.")
 
-        # וידוא שהשדה lethality_change_by_year קיים
         for feature in world_geo['features']:
             if 'lethality_change_by_year' not in feature['properties']:
                 feature['properties']['lethality_change_by_year'] = "No data available"
 
-        # יצירת המפה עם Folium
         m = folium.Map([0, 0], zoom_start=2)
 
-        # יצירת פופאפ עבור התצוגה
         popup = folium.GeoJsonPopup(
             fields=["name", "lethality_change_by_year"],
             aliases=["Country Name", "Lethality Change by Year"],
             empty_label="No data available"
         )
 
-        # הוספת שכבה עם הנתונים למפה
         folium.GeoJson(
             world_geo,
             highlight_function=lambda feature: {
@@ -74,7 +67,6 @@ def generate_map_lethality_pct_change(area=None):
             popup_keep_highlighted=True,
         ).add_to(m)
 
-        # שמירת המפה לקובץ HTML
         m.save("templates/map.html")
         print("Saved new map to templates/map.html")
         return True
@@ -97,7 +89,6 @@ def generate_map_lethality_pct_change(area=None):
 
 def generate_map_active_groups(area="country"):
     try:
-        # יצירת GeoJSON מעודכן
         world_geo = generate_geojson_with_active_groups()
         if world_geo is None:
             raise ValueError("Failed to generate GeoJSON. The data might be missing or invalid.")
@@ -109,14 +100,12 @@ def generate_map_active_groups(area="country"):
 
         m = folium.Map([0, 0], zoom_start=2)
 
-        # יצירת פופאפ עבור התצוגה
         popup = folium.GeoJsonPopup(
             fields=["name", "active_groups"],
             aliases=["Country Name", "most active groups"],
             empty_label="No data available"
         )
 
-        # הוספת שכבה עם הנתונים למפה
         folium.GeoJson(
             world_geo,
             highlight_function=lambda feature: {
@@ -129,7 +118,6 @@ def generate_map_active_groups(area="country"):
             popup_keep_highlighted=True,
         ).add_to(m)
 
-        # שמירת המפה לקובץ HTML
         m.save("templates/map.html")
         print("Saved new map to templates/map.html")
         return True

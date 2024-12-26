@@ -8,15 +8,15 @@ import requests
 
 
 def generate_geojson_with_pct_change():
-    # Fetch lethality change data
+
     df = lethality_change_by_area_and_year('country')
 
-    # Validate required columns
+
     required_columns = {'country', 'year', 'pct_change'}
     if not required_columns.issubset(df.columns):
         raise ValueError(f"DataFrame is missing required columns: {required_columns - set(df.columns)}")
 
-    # Fetch GeoJSON file
+
     url = "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/world_countries.json"
     try:
         world_geo = requests.get(url).json()
@@ -24,10 +24,8 @@ def generate_geojson_with_pct_change():
         print(f"Error fetching GeoJSON: {e}")
         return None
 
-    # Preprocess DataFrame into a dictionary for quick lookup
     country_dict = {name: group for name, group in df.groupby('country')}
 
-    # Enhance GeoJSON with lethality change data
     for feature in world_geo['features']:
         country_name = feature['properties']['name']
         if country_name in country_dict:
@@ -44,7 +42,6 @@ import requests
 def generate_geojson_with_active_groups():
     df = active_groups_by_area("country", 5)
 
-    # Fetch GeoJSON file
     url = "https://raw.githubusercontent.com/python-visualization/folium-example-data/main/world_countries.json"
     try:
         world_geo = requests.get(url).json()
@@ -52,12 +49,10 @@ def generate_geojson_with_active_groups():
         print(f"Error fetching GeoJSON: {e}")
         return None
 
-    # Preprocess DataFrame into a dictionary for quick lookup
     country_groups = {
         country: group for country, group in df.groupby('country')
     }
 
-    # Enhance GeoJSON with lethality change data
     for feature in world_geo['features']:
         country_name = feature['properties']['name']
         if country_name in country_groups:
