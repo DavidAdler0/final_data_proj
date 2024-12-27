@@ -1,5 +1,5 @@
 import requests
-from repositories.analysis_repository import lethality_change_by_area_and_year, active_groups_by_area
+from services.analysis_service import lethality_change_by_area_and_year, active_groups_by_area
 
 import json
 import requests

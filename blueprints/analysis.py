@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from repositories.analysis_repository import terror_events_with_lethality_score
+from services.analysis_service import terror_events_with_lethality_score
 
 analysis_bp = Blueprint('analysis', __name__)
 

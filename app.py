@@ -1,7 +1,7 @@
 from flask import Flask
 from blueprints.map import map_bp
 from blueprints.analysis import analysis_bp
-from repositories.data_repository import init_first_data, init_second_data
+from services.data_service import init_first_data, init_second_data
 from db import db
 
 

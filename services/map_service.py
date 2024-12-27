@@ -2,8 +2,8 @@ import folium
 import requests
 from sqlalchemy.testing.exclusions import succeeds_if
 
-from repositories.analysis_repository import lethality_avg_by_area, most_targeted_location_by_area
-from repositories.geojson_repository import generate_geojson_with_pct_change, generate_geojson_with_active_groups
+from services.analysis_service import lethality_avg_by_area, most_targeted_location_by_area
+from services.geojson_service import generate_geojson_with_pct_change, generate_geojson_with_active_groups
 
 
 def generate_map_lethality_by_area(area):
@@ -32,8 +32,8 @@ def generate_map_lethality_by_area(area):
 
     folium.LayerControl().add_to(m)
 
-    m.save("templates/map.html")
-    print("saved new map")
+    m.save("templates/map1.html")
+    print("saved new map1")
     return True
 
 
@@ -67,8 +67,8 @@ def generate_map_lethality_pct_change(area=None):
             popup_keep_highlighted=True,
         ).add_to(m)
 
-        m.save("templates/map.html")
-        print("Saved new map to templates/map.html")
+        m.save("templates/map2.html")
+        print("Saved new map to templates/map2.html")
         return True
 
     except ValueError as ve:
@@ -118,8 +118,8 @@ def generate_map_active_groups(area="country"):
             popup_keep_highlighted=True,
         ).add_to(m)
 
-        m.save("templates/map.html")
-        print("Saved new map to templates/map.html")
+        m.save("templates/map3.html")
+        print("Saved new map to templates/map3.html")
         return True
 
     except ValueError as ve:
@@ -148,6 +148,6 @@ def generate_map_targeted_locations(area="country"):
             location=[row['latitude'], row['longitude']],
             popup=popup_text
         ).add_to(m)
-    m.save("templates/map.html")
-    print("Saved new map to templates/map.html")
+    m.save("templates/map4.html")
+    print("Saved new map to templates/map4.html")
     return True
